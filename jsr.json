@@ -1,0 +1,12 @@
+{
+  "$schema": "https://jsr.io/schema/config-file.v1.json",
+  "name": "@abhabongse/rehype-replace-twemoji",
+  "version": "0.0.0",
+  "license": "Apache-2.0",
+  "exports": {
+    ".": "./src/mod.ts"
+  },
+  "publish": {
+    "exclude": [".github", ".idea", ".mise", ".prettierignore"]
+  }
+}

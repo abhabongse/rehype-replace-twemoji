@@ -1,0 +1,23 @@
+[tools]
+"aqua:watchexec/watchexec" = "latest"
+"deno" = "2"
+
+[tasks.live-docs]
+description = "Use deno to render documentation live"
+run = """
+#!/usr/bin/env bash
+
+# Ensure dist/docs directory exists
+mkdir -p dist/docs/
+
+# Command to generate documentation
+GENERATE_DOCS="deno doc --html --name=@abhabongse/rehype-replace-twemoji --output=dist/docs/ src/"
+
+echo "Starting Deno documentation watcher..."
+watchexec -w src/ -e ts,js,tsx,jsx -- "$GENERATE_DOCS" &
+
+echo "Starting BrowserSync for dist/docs directory..."
+browser-sync start --server "dist/docs/" --files "dist/docs/" --port 8000 --no-ui --no-notify &
+
+wait
+"""

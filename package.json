@@ -1,0 +1,16 @@
+{
+  "name": "@abhabongse/rehype-replace-twemoji",
+  "private": true,
+  "type": "module",
+  "types": "./src/mod.ts",
+  "main": "./src/mod.ts",
+  "exports": {
+    ".": {
+      "types": "./src/mod.ts",
+      "import": "./src/mod.ts"
+    }
+  },
+  "scripts": {
+    "preinstall": "npx only-allow pnpm"
+  }
+}

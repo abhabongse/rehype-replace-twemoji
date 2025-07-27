@@ -1,0 +1,29 @@
+[tools]
+"aqua:mikefarah/yq" = "latest"
+node = "24"
+
+[env]
+_.path = [
+    "{{config_root}}/node_modules/.bin",
+]
+
+[tasks.test]
+description = "Run tests as specified in test/ directory"
+run = "node --test test/*.test.ts"
+alias = "t"
+
+[tasks.format]
+description = "Formats the code base"
+depends = [
+    "format:markdown .",
+    "format:prettier .",
+]
+alias = "f"
+
+[tasks."format:markdown"]
+description = "Formats Markdown files"
+run = "remark {{arg(name='path', help='Path to markdown file')}} -u frontmatter -u gfm -u heading-gap -fo"
+
+[tasks."format:prettier"]
+description = "Formats code with Prettier"
+run = "prettier {{arg(name='path', help='Path to run prettier')}} --write"
