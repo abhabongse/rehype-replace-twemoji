@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@abhabongse/rehype-replace-twemoji": "workspace:*",
+    "glob": "^11.0.3",
+    "rehype-parse": "^9.0.1",
+    "rehype-stringify": "^10.0.1",
+    "to-vfile": "^8.0.0"
+  }
+}

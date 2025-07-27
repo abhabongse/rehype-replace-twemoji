@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "license": "Apache-2.0",
   "exports": {
-    ".": "./src/mod.ts"
+    ".": "./src/mod.ts",
+    "./builder": "./src/builder.ts",
+    "./types": "./src/types.ts"
   },
   "publish": {
     "exclude": [".github", ".idea", ".mise", ".prettierignore"]
