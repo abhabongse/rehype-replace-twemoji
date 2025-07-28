@@ -143,7 +143,21 @@ Nullam suscipit vel erat non eleifend.
 
 Head over to the [JSR package documentation][jsr:package/api-reference] for the full API documentation.
 
+
+## Help, Support, and Contribute
+
+If you are a user of this package, I would like to hear from you!
+[Create a discussion thread][github:package/discussion]
+or send me a direct message if you have feedback or suggestions.
+
+
+## License
+
+[Apache-2.0](./LICENSE) © Abhabongse Janthong
+
 <!-- Definitions -->
+
+[github:package/discussion]: https://github.com/abhabongse/rehype-replace-twemoji/discussions
 
 [github:twemoji]: https://github.com/jdecked/twemoji
 
