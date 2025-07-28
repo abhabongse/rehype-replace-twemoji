@@ -7,6 +7,12 @@ import { visit, SKIP } from "unist-util-visit";
 /**
  * A {@link https://github.com/rehypejs/rehype | Rehype} plugin
  * that replaces Unicode Emoji codepoints with images from Twemoji.
+ *
+ * @see {@link https://jsr.io/@abhabongse/rehype-replace-twemoji | Package Overview}
+ * for a walkthrough on plugin features.
+ *
+ * @see {@linkcode https://github.com/jdecked/twemoji?tab=readme-ov-file#object-as-parameter | TwemojiOptions}
+ * for definitions of options exposed by the upstream Twemoji package.
  */
 export const rehypeReplaceTwemoji: Plugin<[TwemojiOptions?], hast.Root> = (
   options: TwemojiOptions = {},
