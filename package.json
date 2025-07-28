@@ -8,14 +8,6 @@
     ".": {
       "types": "./src/mod.ts",
       "import": "./src/mod.ts"
-    },
-    "./builder": {
-      "types": "./src/builder.ts",
-      "import": "./src/builder.ts"
-    },
-    "./types": {
-      "types": "./src/types.ts",
-      "import": "./src/types.ts"
     }
   },
   "scripts": {
