@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@twemoji/api':
-        specifier: '>=16.0.0'
-        version: 16.0.1
       '@types/hast':
         specifier: ^3.0.4
         version: 3.0.4
@@ -27,6 +24,9 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0
     devDependencies:
+      '@twemoji/api':
+        specifier: ^16.0.0
+        version: 16.0.1
       '@types/node':
         specifier: ^24.1.0
         version: 24.1.0
