@@ -24,11 +24,9 @@ export type TestScenario = {
  * Automatically gathers a list of {@linkcode TestScenario}
  * located according to its test structure.
  */
-export async function getScenarios(): Promise<TestScenario[]> {
+export async function getScenarios(): Promise<TestScenario[] | undefined> {
   const inputMarkdownPath = path.join(FIXTURES_BASE_PATH, "input.md");
-  if (!fs.existsSync(inputMarkdownPath)) {
-    throw new Error("cannot find input.md in test fixture directory");
-  }
+  if (!fs.existsSync(inputMarkdownPath)) return;
 
   const scenarios: TestScenario[] = [];
   const expectedHtmlFiles = await glob("*.expected.html", {

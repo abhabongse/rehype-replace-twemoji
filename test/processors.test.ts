@@ -12,7 +12,12 @@ const processors: Record<string, Processor> = {
   "local-path": localPathProcessor,
 };
 
-const scenarios = await getScenarios();
+const scenarios = (await getScenarios()) || [];
+if (scenarios.length === 0) {
+  console.warn("Cannot find test cases.");
+  process.exit(1);
+}
+
 for (const scenario of scenarios) {
   test(
     `processor "${scenario.processor}" should work correctly`,
