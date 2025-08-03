@@ -9,13 +9,30 @@ const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const TEST_ROOT = path.join(__dirname, "..");
 const FIXTURES_BASE_PATH = path.join(TEST_ROOT, "fixtures");
 
-console.log(__dirname, TEST_ROOT, FIXTURES_BASE_PATH);
+type VFile = Awaited<ReturnType<typeof read>>;
 
-export async function getScenarios() {
+/**
+ * Test scenario consisting of the following pair of files:
+ * - an input Markdown file at `test/fixtures/input.md`
+ * - an expected HTML file at `test/fixtures/{processor}.expected.md`
+ */
+export type TestScenario = {
+  processor: string;
+  inputMarkdown: VFile;
+  expectedHtml: VFile;
+};
+
+/**
+ * Automatically gathers a list of {@linkcode TestScenario}
+ * located according to its test structure.
+ */
+export async function getScenarios(): Promise<TestScenario[]> {
   const inputMarkdownPath = path.join(FIXTURES_BASE_PATH, "input.md");
-  if (!fs.existsSync(inputMarkdownPath)) return;
+  if (!fs.existsSync(inputMarkdownPath)) {
+    throw new Error("cannot find input.md in test fixture directory");
+  }
 
-  const scenarios = [];
+  const scenarios: TestScenario[] = [];
   const expectedHtmlFiles = await glob("*.expected.html", {
     cwd: FIXTURES_BASE_PATH,
   });

@@ -3,7 +3,7 @@ import { test } from "node:test";
 
 import { defaultProcessor } from "../examples/default-processor.ts";
 import { localPathProcessor } from "../examples/local-path-processor.ts";
-import { getScenarios } from "./utils/fixture.ts";
+import { getScenarios, type TestScenario } from "./utils/fixture.ts";
 import { roundtripHtmlProcessor } from "./utils/processors.ts";
 
 const processors: Record<string, any> = {
@@ -12,13 +12,16 @@ const processors: Record<string, any> = {
 };
 
 const scenarios = await getScenarios();
-if (!scenarios) {
-  console.warn("Cannot find test cases.");
-  process.exit(1);
-}
 
 for (const scenario of scenarios) {
-  test(`processor "${scenario.processor}" should work correctly`, async () => {
+  test(
+    `processor "${scenario.processor}" should work correctly`,
+    buildTest(scenario),
+  );
+}
+
+function buildTest(scenario: TestScenario) {
+  return async () => {
     const processor = processors[scenario.processor];
     const actualOutput = await processor.process(scenario.inputMarkdown);
     const expectedOutput = await roundtripHtmlProcessor.process(
@@ -30,5 +33,5 @@ for (const scenario of scenarios) {
       String(expectedOutput),
       `Output from "${scenario.processor}" processor does not match expected output.`,
     );
-  });
+  };
 }
