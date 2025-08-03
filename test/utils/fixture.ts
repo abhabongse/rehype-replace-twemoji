@@ -3,13 +3,11 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { glob } from "glob";
-import { read } from "to-vfile";
+import { readSync } from "to-vfile";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const TEST_ROOT = path.join(__dirname, "..");
 const FIXTURES_BASE_PATH = path.join(TEST_ROOT, "fixtures");
-
-type VFile = Awaited<ReturnType<typeof read>>;
 
 /**
  * Test scenario consisting of the following pair of files:
@@ -18,8 +16,8 @@ type VFile = Awaited<ReturnType<typeof read>>;
  */
 export type TestScenario = {
   processor: string;
-  inputMarkdown: VFile;
-  expectedHtml: VFile;
+  inputMarkdown: string;
+  expectedHtml: string;
 };
 
 /**
@@ -39,8 +37,8 @@ export async function getScenarios(): Promise<TestScenario[]> {
   for (const expectedHtmlFile of expectedHtmlFiles) {
     const expectedHtmlPath = path.join(FIXTURES_BASE_PATH, expectedHtmlFile);
     const processor = path.basename(expectedHtmlFile, ".expected.html");
-    const inputMarkdown = await read(inputMarkdownPath);
-    const expectedHtml = await read(expectedHtmlPath);
+    const inputMarkdown = readSync(inputMarkdownPath).toString();
+    const expectedHtml = readSync(expectedHtmlPath).toString();
 
     scenarios.push({
       processor,

@@ -6,13 +6,13 @@ import { localPathProcessor } from "../examples/local-path-processor.ts";
 import { getScenarios, type TestScenario } from "./utils/fixture.ts";
 import { roundtripHtmlProcessor } from "./utils/processors.ts";
 
-const processors: Record<string, any> = {
+type Processor = typeof defaultProcessor;
+const processors: Record<string, Processor> = {
   default: defaultProcessor,
   "local-path": localPathProcessor,
 };
 
 const scenarios = await getScenarios();
-
 for (const scenario of scenarios) {
   test(
     `processor "${scenario.processor}" should work correctly`,
@@ -23,14 +23,16 @@ for (const scenario of scenarios) {
 function buildTest(scenario: TestScenario) {
   return async () => {
     const processor = processors[scenario.processor];
-    const actualOutput = await processor.process(scenario.inputMarkdown);
-    const expectedOutput = await roundtripHtmlProcessor.process(
-      scenario.expectedHtml,
-    );
+    const actualOutput = processor
+      .processSync(scenario.inputMarkdown)
+      .toString();
+    const expectedOutput = roundtripHtmlProcessor
+      .processSync(scenario.expectedHtml)
+      .toString();
 
     assert.strictEqual(
-      String(actualOutput),
-      String(expectedOutput),
+      actualOutput,
+      expectedOutput,
       `Output from "${scenario.processor}" processor does not match expected output.`,
     );
   };
